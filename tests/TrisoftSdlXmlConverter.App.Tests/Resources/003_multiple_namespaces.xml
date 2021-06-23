@@ -2,7 +2,7 @@
 <root xmlns:h="http://www.w3.org/TR/html4" xmlns:f="https://www.w3schools.com/furniture">
     <h:table>
         <h:tr>
-            <h:td title="How about making better Trisoft?">Trisoft</h:td>
+            <h:td title="How about making better Trisoft?" style="Should Trisoft also be replaced here? Nope!">SDL Trisoft</h:td>
             <h:td title="It's a trisoft term in a lower register. Should it be replaced?">SDL</h:td>
         </h:tr>
     </h:table>

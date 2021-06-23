@@ -38,23 +38,23 @@ namespace TrisoftSdlXmlConverter.App
 						{
 							case XmlNodeType.Element:
 								await xmlWriter.WriteStartElementAsync(xmlReader.Prefix, xmlReader.LocalName, xmlReader.NamespaceURI);
-
-								for (int i = 0; i < xmlReader.AttributeCount; i++)
+								
+								while (xmlReader.MoveToNextAttribute())
 								{
-									while (xmlReader.MoveToNextAttribute())
-									{
-										if (xmlReader.LocalName == "title")
-											await xmlWriter.WriteAttributeStringAsync(xmlReader.Prefix, xmlReader.LocalName, xmlReader.NamespaceURI, xmlReader.Value.Replace(_term, _replacement));
-										else
-											await xmlWriter.WriteAttributesAsync(xmlReader, defattr: false);
-									}
+									var value = xmlReader.Value;
+
+									if (xmlReader.LocalName == "title" && CanReplace(value))
+										value = value.Replace(_term, _replacement);
+
+									await xmlWriter.WriteAttributeStringAsync(xmlReader.Prefix, xmlReader.LocalName, xmlReader.NamespaceURI, value);
 								}
 
 								if (xmlReader.IsEmptyElement)
 									await xmlWriter.WriteEndElementAsync();
 								break;
 							case XmlNodeType.Text:
-								await xmlWriter.WriteStringAsync(xmlReader.Value.Replace(_term, _replacement));
+								if (CanReplace(xmlReader.Value))
+									await xmlWriter.WriteStringAsync(xmlReader.Value.Replace(_term, _replacement));
 								break;
 							case XmlNodeType.EndElement:
 								await xmlWriter.WriteEndElementAsync();
@@ -78,6 +78,12 @@ namespace TrisoftSdlXmlConverter.App
 					throw;
 				}
 			}
+		}
+
+		private bool CanReplace(string value)
+		{
+			var result = value.IndexOf(_replacement, StringComparison.InvariantCulture) == -1;
+			return result;
 		}
 	}
 }
