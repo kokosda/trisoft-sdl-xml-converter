@@ -34,6 +34,8 @@ namespace TrisoftSdlXmlConverter.App
 				{
 					while (await xmlReader.ReadAsync())
 					{
+						string value;
+						
 						switch(xmlReader.NodeType)
 						{
 							case XmlNodeType.Element:
@@ -41,7 +43,7 @@ namespace TrisoftSdlXmlConverter.App
 								
 								while (xmlReader.MoveToNextAttribute())
 								{
-									var value = xmlReader.Value;
+									value = xmlReader.Value;
 
 									if (xmlReader.LocalName == "title" && CanReplace(value))
 										value = value.Replace(_term, _replacement);
@@ -53,8 +55,12 @@ namespace TrisoftSdlXmlConverter.App
 									await xmlWriter.WriteEndElementAsync();
 								break;
 							case XmlNodeType.Text:
-								if (CanReplace(xmlReader.Value))
-									await xmlWriter.WriteStringAsync(xmlReader.Value.Replace(_term, _replacement));
+								value = xmlReader.Value;
+								
+								if (CanReplace(value))
+									value = value.Replace(_term, _replacement);
+								
+								await xmlWriter.WriteStringAsync(value);
 								break;
 							case XmlNodeType.EndElement:
 								await xmlWriter.WriteEndElementAsync();
