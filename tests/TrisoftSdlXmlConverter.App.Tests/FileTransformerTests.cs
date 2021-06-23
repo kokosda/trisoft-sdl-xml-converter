@@ -37,7 +37,8 @@ namespace TrisoftSdlXmlConverter.App.Tests
 
 			foreach (var fileName in fileNames)
 			{
-				var expectedContent = FileReader.GetXml($"{fileName}_expected");
+				var expectedFileName = $"{Path.GetFileNameWithoutExtension(fileName)}_expected";
+				var expectedContent = FileReader.GetXml(expectedFileName);
 				var actualContent = await File.ReadAllTextAsync(fileName);
 				
 				Assert.AreEqual(expectedContent, actualContent);

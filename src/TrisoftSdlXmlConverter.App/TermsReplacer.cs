@@ -62,6 +62,9 @@ namespace TrisoftSdlXmlConverter.App
 							case XmlNodeType.Comment:
 								await xmlWriter.WriteCommentAsync(xmlReader.Value);
 								break;
+                     case XmlNodeType.Whitespace:
+	                     await xmlWriter.WriteWhitespaceAsync(xmlReader.Value);
+	                     break;
 							case XmlNodeType.XmlDeclaration:
 							case XmlNodeType.ProcessingInstruction:
 								await xmlWriter.WriteProcessingInstructionAsync(xmlReader.Name, xmlReader.Value);
