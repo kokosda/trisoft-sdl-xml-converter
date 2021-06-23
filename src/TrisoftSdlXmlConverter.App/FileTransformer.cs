@@ -35,7 +35,9 @@ namespace TrisoftSdlXmlConverter.App
 						var readStream = File.OpenRead(bakFile);
 						var writeStream = File.Open(outputFileName, FileMode.Create);
 						
-						tasks.Add(_termsReplacer.Replace(readStream, writeStream));
+						tasks.Add(_termsReplacer.Replace(readStream, writeStream)
+							.ContinueWith(_ => readStream.DisposeAsync())
+							.ContinueWith(_ => writeStream.DisposeAsync()));
 					}
 					catch (Exception e)
 					{

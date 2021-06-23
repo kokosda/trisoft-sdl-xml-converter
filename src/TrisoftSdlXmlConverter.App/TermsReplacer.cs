@@ -30,63 +30,51 @@ namespace TrisoftSdlXmlConverter.App
 			using (var xmlReader = XmlReader.Create(contentStream, new XmlReaderSettings { Async = true }))
 			using (var xmlWriter = XmlWriter.Create(outputStream, new XmlWriterSettings { Async = true }))
 			{
-				while (await xmlReader.ReadAsync())
+				try
 				{
-					if (xmlReader.NodeType == XmlNodeType.Element)
+					while (await xmlReader.ReadAsync())
 					{
-						await UpdateAttributeInElement(xmlReader, xmlWriter);
-					}
+						switch(xmlReader.NodeType)
+						{
+							case XmlNodeType.Element:
+								await xmlWriter.WriteStartElementAsync(xmlReader.Prefix, xmlReader.LocalName, xmlReader.NamespaceURI);
 
-					if (xmlReader.NodeType == XmlNodeType.Text)
-					{
-						await UpdateTextInElement(xmlReader, xmlWriter);
+								for (int i = 0; i < xmlReader.AttributeCount; i++)
+								{
+									while (xmlReader.MoveToNextAttribute())
+									{
+										if (xmlReader.LocalName == "title")
+											await xmlWriter.WriteAttributeStringAsync(xmlReader.Prefix, xmlReader.LocalName, xmlReader.NamespaceURI, xmlReader.Value.Replace(_term, _replacement));
+										else
+											await xmlWriter.WriteAttributesAsync(xmlReader, defattr: false);
+									}
+								}
+
+								if (xmlReader.IsEmptyElement)
+									await xmlWriter.WriteEndElementAsync();
+								break;
+							case XmlNodeType.Text:
+								await xmlWriter.WriteStringAsync(xmlReader.Value.Replace(_term, _replacement));
+								break;
+							case XmlNodeType.EndElement:
+								await xmlWriter.WriteEndElementAsync();
+								break;
+							case XmlNodeType.Comment:
+								await xmlWriter.WriteCommentAsync(xmlReader.Value);
+								break;
+							case XmlNodeType.XmlDeclaration:
+							case XmlNodeType.ProcessingInstruction:
+								await xmlWriter.WriteProcessingInstructionAsync(xmlReader.Name, xmlReader.Value);
+								break;
+						}
 					}
 				}
-			}
-			
-			await contentStream.DisposeAsync();
-			await outputStream.DisposeAsync();
-		}
-
-		private async Task UpdateAttributeInElement(XmlReader xmlReader, XmlWriter xmlWriter)
-		{
-			var node = new XmlDocument().ReadNode(xmlReader);
-
-			if (node is null)
-				return;
-					
-			if (node.Attributes is null)
-			{
-				await WriteNode(xmlReader, xmlWriter);
-				return;
-			}
-
-			foreach (XmlAttribute nodeAttribute in node.Attributes)
-			{
-				if (nodeAttribute.Name == "title")
+				catch (Exception e)
 				{
-					nodeAttribute.Value = nodeAttribute.Value?.Replace(_term, _replacement);
-					await WriteNode(xmlReader, xmlWriter);
-					break;
+					Console.WriteLine(e);
+					throw;
 				}
 			}
-		}
-		
-		private async Task UpdateTextInElement(XmlReader xmlReader, XmlWriter xmlWriter)
-		{
-			var node = new XmlDocument().ReadNode(xmlReader);
-
-			if (node is null)
-				return;
-
-			node.InnerText = node.InnerText.Replace(_term, _replacement);
-			await WriteNode(xmlReader, xmlWriter);
-		}
-
-		private async Task WriteNode(XmlReader xmlReader, XmlWriter xmlWriter)
-		{
-			await xmlWriter.WriteNodeAsync(xmlReader, defattr: false);
-			await xmlWriter.FlushAsync();
 		}
 	}
 }
