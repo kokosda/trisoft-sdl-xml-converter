@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrisoftSdlXmlConverter.App", "src\TrisoftSdlXmlConverter.App\TrisoftSdlXmlConverter.App.csproj", "{5F13F1E7-5A86-4055-BC0E-657F06F30FB2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A4B60BAA-1212-479F-82EA-93627EF6869F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DCC27A3A-42D3-4707-8F37-D629B8BB942B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrisoftSdlXmlConverter.App.Tests", "tests\TrisoftSdlXmlConverter.App.Tests\TrisoftSdlXmlConverter.App.Tests.csproj", "{1A571789-FEAA-4E56-8639-A92E37CFE187}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F13F1E7-5A86-4055-BC0E-657F06F30FB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F13F1E7-5A86-4055-BC0E-657F06F30FB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F13F1E7-5A86-4055-BC0E-657F06F30FB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F13F1E7-5A86-4055-BC0E-657F06F30FB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A571789-FEAA-4E56-8639-A92E37CFE187}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A571789-FEAA-4E56-8639-A92E37CFE187}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A571789-FEAA-4E56-8639-A92E37CFE187}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A571789-FEAA-4E56-8639-A92E37CFE187}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F13F1E7-5A86-4055-BC0E-657F06F30FB2} = {A4B60BAA-1212-479F-82EA-93627EF6869F}
+		{1A571789-FEAA-4E56-8639-A92E37CFE187} = {DCC27A3A-42D3-4707-8F37-D629B8BB942B}
+	EndGlobalSection
+EndGlobal
