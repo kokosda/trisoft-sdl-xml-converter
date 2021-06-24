@@ -9,9 +9,11 @@ namespace TrisoftSdlXmlConverter.App.Tests
 		{
 		}
 
-		[Test]
-		public void Test1()
+		[TestCase("001_no_namespace", "001_no_namespace_expected")]
+		public void Test1(string originalFile, string expectedFile)
 		{
+			var file1 = FileReader.GetXml(originalFile);
+			var file2 = FileReader.GetXml(expectedFile);
 			Assert.Pass();
 		}
 	}
