@@ -31,7 +31,11 @@ namespace TrisoftSdlXmlConverter.App
 						var bakFile = $"{fileName}.bak";
 						File.Copy(fileName, bakFile, overwrite: true);
 						var outputFileName = Path.Combine(outputDirectory, Path.GetFileName(fileName));
-						tasks.Add(_termsReplacer.Replace(File.OpenRead(bakFile), File.Open(outputFileName, FileMode.Create)));
+
+						var readStream = File.OpenRead(bakFile);
+						var writeStream = File.Open(outputFileName, FileMode.Create);
+						
+						tasks.Add(_termsReplacer.Replace(readStream, writeStream));
 					}
 					catch (Exception e)
 					{

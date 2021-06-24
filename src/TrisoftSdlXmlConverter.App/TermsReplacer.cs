@@ -43,6 +43,9 @@ namespace TrisoftSdlXmlConverter.App
 					}
 				}
 			}
+			
+			await contentStream.DisposeAsync();
+			await outputStream.DisposeAsync();
 		}
 
 		private async Task UpdateAttributeInElement(XmlReader xmlReader, XmlWriter xmlWriter)
@@ -83,6 +86,7 @@ namespace TrisoftSdlXmlConverter.App
 		private async Task WriteNode(XmlReader xmlReader, XmlWriter xmlWriter)
 		{
 			await xmlWriter.WriteNodeAsync(xmlReader, defattr: false);
+			await xmlWriter.FlushAsync();
 		}
 	}
 }
