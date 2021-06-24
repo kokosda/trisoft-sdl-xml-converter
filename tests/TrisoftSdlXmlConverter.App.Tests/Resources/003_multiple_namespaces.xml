@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:h="http://www.w3.org/TR/html4" xmlns:f="https://www.w3schools.com/furniture">
+    <h:table>
+        <h:tr>
+            <h:td title="How about making better Trisoft?">Trisoft</h:td>
+            <h:td title="It's a trisoft term in a lower register. Should it be replaced?">SDL</h:td>
+        </h:tr>
+    </h:table>
+
+    <f:table title="trisoft or Trisoft? I know the answer">
+        <f:name>It could be SDL</f:name>
+        <f:width>Maybe, it's TRisoFT?</f:width>
+        <f:length title="Trisoft">No, it's only Trisoft</f:length>
+    </f:table>
+</root>
