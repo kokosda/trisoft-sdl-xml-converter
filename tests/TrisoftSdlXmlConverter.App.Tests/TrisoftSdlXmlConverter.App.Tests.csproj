@@ -27,4 +27,23 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\TrisoftSdlXmlConverter.App\TrisoftSdlXmlConverter.App.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Resources\001_no_namespace.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\002_single_namespace.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\003_multiple_namespaces.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Resources\004_xsl_single_namespace.xsl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
